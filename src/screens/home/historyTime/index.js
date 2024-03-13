@@ -7,7 +7,7 @@ import { AIPT_TOKEN, DATE_FORMAT, TIME_FORMAT,DATETIME_FORMAT } from "utils/cons
 import { actionGetHistory } from './actions';
 import { ActivityIndicator } from 'react-native';
 import moment from 'moment';
-const HistoryTime = ({ route  }) => {
+const HistoryTime = ({ route  ,navigation}) => {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
 
