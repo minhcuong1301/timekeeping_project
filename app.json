@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "permissions": ["CAMERA"],
+    "permissions": [
+      "CAMERA"
+    ],
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -22,10 +24,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.minhcuong1301.timekeeping"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8b59692b-10e3-49f1-b308-10eeffc4796a"
+      }
     }
   }
 }
