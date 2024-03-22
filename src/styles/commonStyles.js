@@ -121,9 +121,24 @@ const commonStyles = StyleSheet.create({
     borderBottomWidth: 1,
     width: "90%",
     padding: 10,
-    height: 100
+    // height: 100
   },
-
+  radioButtonGroup: {
+    flexDirection: 'row',
+   
+    justifyContent:"space-around",
+    gap:50,
+    margin: 20,
+  },
+  radioButtonText: {
+    marginRight: 20,
+    fontSize: 16,
+  },
+  radioButtonLabel: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+  },
   footer: {
     flex: 0.5,
     flexDirection: 'row',

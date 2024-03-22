@@ -7,18 +7,16 @@
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./src/assets/splash.png",
+      "image": "./src/assets/adaptive-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "permissions": [
-      "CAMERA"
-    ],
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.minhcuong1301.timekeeping"
     },
     "android": {
       "adaptiveIcon": {
@@ -34,6 +32,12 @@
       "eas": {
         "projectId": "8b59692b-10e3-49f1-b308-10eeffc4796a"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/8b59692b-10e3-49f1-b308-10eeffc4796a"
     }
   }
 }

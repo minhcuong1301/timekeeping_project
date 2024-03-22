@@ -3,19 +3,18 @@ import styles from "styles"
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { Button } from '@ant-design/react-native';
+import { Button, Radio } from '@ant-design/react-native';
 import { Camera, CameraType } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
 import * as FileSystem from 'expo-file-system';
 import { actionTimeKeep } from './actions'
 import dayjs from 'dayjs';
 import Constants from 'expo-constants';
-import { Skeleton } from '@rneui/themed';
-
+import { TYPE_KEEPING } from "utils/constants/config"
+import { CheckBox } from '@rneui/themed';
 import {
   View, TextInput, Text, Image, Alert, ActivityIndicator
 } from 'react-native';
-
 const TimeKeeping = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +23,7 @@ const TimeKeeping = ({ navigation }) => {
   const [image, setImage] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.front);
   const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
-
+  const [attendanceType, setAttendanceType] = useState(null)
   const cameraRef = useRef(null)
 
 
@@ -61,7 +60,8 @@ const TimeKeeping = ({ navigation }) => {
         description: value,
         devide_name: Constants.deviceName,
         devide_id: Constants.manifest2.id,
-        avatar: base64
+        avatar: base64,
+        type_keeping:attendanceType
       }
       try {
 
@@ -88,54 +88,70 @@ const TimeKeeping = ({ navigation }) => {
     return <Text> Không có quyền truy cập</Text>
   }
 
+  console.log(attendanceType);
   return (
     <>
-    <View style={styles.timekeeping}>
-            {!image ?
-              <Camera
-                style={styles.camera}
-                type={type}
-                flashMode={flash}
-                ref={cameraRef}
-              >
-                <Text style={{ color: "transparent" }}>aipt_2024mhmhjmhjmhjmhjmhjmhjhjmhjjhmhjhjmhjmhmjmhjcasssssssssssssmjh</Text>
+      <View style={styles.timekeeping}>
+        {!image ?
+          <Camera
+            style={styles.camera}
+            type={type}
+            flashMode={flash}
+            ref={cameraRef}
+          >
+            <Text style={{ color: "transparent" }}>aipt_2024mhmhjmhjmhjmhjmhjmhjhjmhjjhmhjhjmhjmhmjmhjcasssssssssssssmjh</Text>
 
-                <View style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  paddingLeft: 30,
-                  paddingRight: 30,
-                }}>
+            <View style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              paddingLeft: 30,
+              paddingRight: 30,
+            }}>
 
-                  <Entypo name="retweet" size={40} color="black" onPress={() => {
-                    setType(type === CameraType.back ? CameraType.front : CameraType.back)
-                  }} />
-                </View>
-              </Camera> :
-
-              <Image source={{ uri: image }} style={{ width: "100%", height: "70%" }} />
-            }
-
-            <View style={styles.textarea}>
-              <TextInput
-                placeholder='Ghi chú( nếu có)'
-                onChangeText={text => onChangeText(text)}
-                value={value}
-
-              />
+              <Entypo name="retweet" size={40} color="black" onPress={() => {
+                setType(type === CameraType.back ? CameraType.front : CameraType.back)
+              }} />
             </View>
+          </Camera> :
 
-            {image ?
-              <View style={styles.operator}>
-                <Ionicons name="arrow-back-circle-sharp" size={70} color="black" onPress={() => setImage(null)} />
-                <MaterialCommunityIcons name="send-circle" size={70} color="black" onPress={handleTimeKeep} />
-              </View> :
+          <Image source={{ uri: image }} style={{ width: "100%", height: "70%" }} />
+        }
 
-              <Button style={styles.button} onPress={takePicture}>
-                <Text style={styles.buttonText} >Chấm công</Text>
-              </Button>
-            }
+        <View style={styles.radioButtonContainer}>
+          <View style={styles.radioButtonGroup}>
+        
+            <Text onPress={() => setAttendanceType(0)}>
+              {attendanceType === 0 ? "●" : "○"} Công tác
+            </Text>
+            <Text onPress={() => setAttendanceType(1)}>
+              {attendanceType === 1 ? "●" : "○"} Nghỉ phép
+            </Text>
+            <Text onPress={() => setAttendanceType(2)}>
+              {attendanceType === 2 ? "●" : "○"} Đến muộn
+            </Text>
           </View>
+        </View>
+
+        <View style={styles.textarea}>
+          <TextInput
+            placeholder='Ghi chú(nếu có)'
+            onChangeText={text => onChangeText(text)}
+            value={value}
+
+          />
+        </View>
+
+        {image ?
+          <View style={styles.operator}>
+            <Ionicons name="arrow-back-circle-sharp" size={70} color="black" onPress={() => setImage(null)} />
+            <MaterialCommunityIcons name="send-circle" size={70} color="black" onPress={handleTimeKeep} />
+          </View> :
+
+          <Button style={styles.button} onPress={takePicture}>
+            <Text style={styles.buttonText} >Chấm công</Text>
+          </Button>
+        }
+      </View>
     </>
 
   )
