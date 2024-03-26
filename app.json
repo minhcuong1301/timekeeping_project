@@ -6,13 +6,12 @@
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./src/assets/adaptive-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+ 
     "assetBundlePatterns": [
       "**/*"
+    ],
+    "permissions": [
+      "CAMERA"
     ],
     "ios": {
       "supportsTablet": true,
@@ -23,6 +22,9 @@
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "permissions": [
+        "CAMERA"
+      ],
       "package": "com.minhcuong1301.timekeeping"
     },
     "web": {

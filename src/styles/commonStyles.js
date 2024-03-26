@@ -49,7 +49,7 @@ const commonStyles = StyleSheet.create({
   flat:{
     // backgroundColor:"#6750a4",
     padding:10,
-    fontWeight:800,
+    fontWeight:"800",
     fontSize:18,
   },
   body: {
@@ -136,7 +136,7 @@ const commonStyles = StyleSheet.create({
   },
   radioButtonLabel: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
   footer: {
@@ -144,8 +144,8 @@ const commonStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     fontSize: "14px",
-    fontWeight: 500,
-    fontStyle: 'italic',
+    fontWeight: "500",
+    fontStyle: "italic",
     justifyContent: "center"
   },
   left: {

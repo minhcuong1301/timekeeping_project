@@ -3,11 +3,12 @@ import styles from "styles"
 import { Text, Alert, View, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Button } from '@ant-design/react-native';
-import { AIPT_TOKEN, DATE_FORMAT, TIME_FORMAT,DATETIME_FORMAT } from "utils/constants/config"
+import { AIPT_TOKEN,DATETIME_FORMAT } from "utils/constants/config"
 import { actionGetHistory } from './actions';
 import { ActivityIndicator } from 'react-native';
 import moment from 'moment';
 const HistoryTime = ({ route  ,navigation}) => {
+
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
 
@@ -35,6 +36,7 @@ const HistoryTime = ({ route  ,navigation}) => {
   const logout = async () => {
     try {
       await AsyncStorage.removeItem(AIPT_TOKEN);
+      
       navigation.navigate('login');
     } catch (error) {
       console.error('Lỗi khi đăng xuất:', error);
@@ -61,12 +63,6 @@ const HistoryTime = ({ route  ,navigation}) => {
 
         (
           <>
-
-          {/* <View  style={{alignItems: 'center'}}>
-           <Text  style={styles.resultTimeKeep}>Ngày : {ngayThangNam}</Text> 
-           <Text  style={styles.resultTimeKeep} >Họ và tên : {userLogin?.name} </Text> 
-          </View> */}
-
           <View >
              <FlatList
             data={result}

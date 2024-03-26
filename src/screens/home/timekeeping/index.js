@@ -10,8 +10,6 @@ import * as FileSystem from 'expo-file-system';
 import { actionTimeKeep } from './actions'
 import dayjs from 'dayjs';
 import Constants from 'expo-constants';
-import { TYPE_KEEPING } from "utils/constants/config"
-import { CheckBox } from '@rneui/themed';
 import {
   View, TextInput, Text, Image, Alert, ActivityIndicator
 } from 'react-native';
@@ -22,10 +20,16 @@ const TimeKeeping = ({ navigation }) => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null)
   const [image, setImage] = useState(null)
   const [type, setType] = useState(Camera.Constants.Type.front);
-  const [flash, setFlash] = useState(Camera.Constants.FlashMode.off);
   const [attendanceType, setAttendanceType] = useState(null)
   const cameraRef = useRef(null)
 
+  const toggleAttendanceType = (type) => {
+    if (attendanceType === type) {
+      setAttendanceType(null);
+    } else {
+      setAttendanceType(type);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -61,7 +65,7 @@ const TimeKeeping = ({ navigation }) => {
         devide_name: Constants.deviceName,
         devide_id: Constants.manifest2.id,
         avatar: base64,
-        type_keeping:attendanceType
+        type_keeping: attendanceType
       }
       try {
 
@@ -74,7 +78,7 @@ const TimeKeeping = ({ navigation }) => {
           setImage(null)
         }
         else {
-          console.log(data);
+          console.log('');
         }
 
       } catch (error) {
@@ -88,70 +92,78 @@ const TimeKeeping = ({ navigation }) => {
     return <Text> Không có quyền truy cập</Text>
   }
 
-  console.log(attendanceType);
+
+
   return (
     <>
-      <View style={styles.timekeeping}>
-        {!image ?
-          <Camera
-            style={styles.camera}
-            type={type}
-            flashMode={flash}
-            ref={cameraRef}
-          >
-            <Text style={{ color: "transparent" }}>aipt_2024mhmhjmhjmhjmhjmhjmhjhjmhjjhmhjhjmhjmhmjmhjcasssssssssssssmjh</Text>
+      {loading ?
 
-            <View style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              paddingLeft: 30,
-              paddingRight: 30,
-            }}>
+        (<View style={styles.loadingContainer}>
+          <ActivityIndicator animating={true} size="large" color="#0000ff" />
+        </View>) : (
+          <View style={styles.timekeeping}>
 
-              <Entypo name="retweet" size={40} color="black" onPress={() => {
-                setType(type === CameraType.back ? CameraType.front : CameraType.back)
-              }} />
+            {!image ?
+              <Camera
+                style={styles.camera}
+                type={type}
+                ref={cameraRef}
+              >
+                <Text style={{ color: "transparent" }}>aipt_2024mhmhjmhjmhjmhjmhjmhjhjmhjjhmhjhjmhjmhmjmhjcasssssssssssssmjh</Text>
+
+                <View style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingLeft: 30,
+                  paddingRight: 30,
+                }}>
+
+                  <Entypo name="retweet" size={40} color="black" onPress={() => {
+                    setType(type === CameraType.back ? CameraType.front : CameraType.back)
+                  }} />
+                </View>
+              </Camera> :
+
+              <Image source={{ uri: image }} style={{ width: "100%", height: "70%" }} />
+            }
+
+            <View style={styles.radioButtonContainer}>
+              <View style={styles.radioButtonGroup}>
+
+                <Text onPress={() => toggleAttendanceType(0)}>
+                  {attendanceType === 0 ? "●" : "○"} Công tác
+                </Text>
+                <Text onPress={() => toggleAttendanceType(1)}>
+                  {attendanceType === 1 ? "●" : "○"} Nghỉ phép
+                </Text>
+                <Text onPress={() => toggleAttendanceType(2)}>
+                  {attendanceType === 2 ? "●" : "○"} Đến muộn
+                </Text>
+              </View>
             </View>
-          </Camera> :
 
-          <Image source={{ uri: image }} style={{ width: "100%", height: "70%" }} />
-        }
+            <View style={styles.textarea}>
+              <TextInput
+                placeholder='Ghi chú(nếu có)'
+                onChangeText={text => onChangeText(text)}
+                value={value}
 
-        <View style={styles.radioButtonContainer}>
-          <View style={styles.radioButtonGroup}>
-        
-            <Text onPress={() => setAttendanceType(0)}>
-              {attendanceType === 0 ? "●" : "○"} Công tác
-            </Text>
-            <Text onPress={() => setAttendanceType(1)}>
-              {attendanceType === 1 ? "●" : "○"} Nghỉ phép
-            </Text>
-            <Text onPress={() => setAttendanceType(2)}>
-              {attendanceType === 2 ? "●" : "○"} Đến muộn
-            </Text>
+              />
+            </View>
+
+            {image ?
+              <View style={styles.operator}>
+                <Ionicons name="arrow-back-circle-sharp" size={70} color="black" onPress={() => setImage(null)} />
+                <MaterialCommunityIcons name="send-circle" size={70} color="black" onPress={handleTimeKeep} />
+              </View> :
+
+              <Button style={styles.button} onPress={takePicture}>
+                <Text style={styles.buttonText} >Chấm công</Text>
+              </Button>
+            }
           </View>
-        </View>
+        )}
 
-        <View style={styles.textarea}>
-          <TextInput
-            placeholder='Ghi chú(nếu có)'
-            onChangeText={text => onChangeText(text)}
-            value={value}
-
-          />
-        </View>
-
-        {image ?
-          <View style={styles.operator}>
-            <Ionicons name="arrow-back-circle-sharp" size={70} color="black" onPress={() => setImage(null)} />
-            <MaterialCommunityIcons name="send-circle" size={70} color="black" onPress={handleTimeKeep} />
-          </View> :
-
-          <Button style={styles.button} onPress={takePicture}>
-            <Text style={styles.buttonText} >Chấm công</Text>
-          </Button>
-        }
-      </View>
     </>
 
   )
