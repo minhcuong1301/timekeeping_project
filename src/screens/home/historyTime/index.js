@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from "styles"
 import { Text, Alert, View, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button } from '@ant-design/react-native';
+import { Button } from '@rneui/themed';
 import { AIPT_TOKEN,DATETIME_FORMAT } from "utils/constants/config"
 import { actionGetHistory } from './actions';
 import { ActivityIndicator } from 'react-native';
@@ -70,7 +70,9 @@ const HistoryTime = ({ route  ,navigation}) => {
             keyExtractor={(item, index) => index.toString()}
             style={styles.resultTimeKeep}
           />
-            <Button style={styles.button} onPress={logout}>
+            <Button  color={'#0a2946'}
+                size="lg"
+                radius={20} onPress={logout}>
               <Text style={styles.buttonText}>Đăng xuất</Text>
             </Button>
           </View>

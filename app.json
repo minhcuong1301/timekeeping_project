@@ -1,45 +1,44 @@
 {
   "expo": {
-    "name": "timekeeping",
-    "slug": "timekeeping",
+    "name": "timming",
+    "slug": "timming",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "userInterfaceStyle": "light",
- 
+    "splash": {
+      "image": "./src/assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
-    "permissions": [
-      "CAMERA"
-    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.minhcuong1301.timekeeping"
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": [
-        "CAMERA"
-      ],
-      "package": "com.minhcuong1301.timekeeping"
+      
+      "package": "com.minhcuong1303.timming",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },
+    "updates": {
+      "url": "https://u.expo.dev/be22dbbb-c010-4078-b276-a0c15d82e5dd"
+    },
     "extra": {
       "eas": {
-        "projectId": "8b59692b-10e3-49f1-b308-10eeffc4796a"
+        "projectId": "be22dbbb-c010-4078-b276-a0c15d82e5dd"
       }
-    },
-    "runtimeVersion": {
-      "policy": "appVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/8b59692b-10e3-49f1-b308-10eeffc4796a"
     }
   }
 }

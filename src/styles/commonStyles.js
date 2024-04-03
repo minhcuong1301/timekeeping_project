@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const commonStyles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: "#0a2946"
+    // backgroundColor: "#0a2946"
   },
 
   container: {
@@ -156,18 +156,20 @@ const commonStyles = StyleSheet.create({
   },
 
 
-  button: {
-    backgroundColor: '#0a2946',
-    // backgroundColor: '#6750a4',
-    padding: 10,
-    borderRadius: 25,
-    alignItems: 'center',
-    margin: 10,
-    width: "auto"
-  },
+  // button: {
+  //   backgroundColor: '#0a2946',
+  //   // backgroundColor: '#6750a4',
+  //   padding: 10,
+  //   borderRadius: 25,
+  //   alignItems: 'center',
+  //   margin: 10,
+  //   width: "auto"
+  // },
   buttonText: {
-    color: 'white',
     fontSize: 16,
+    textAlign: 'center',
+    color: '#ffffff',
+    backgroundColor: 'transparent',
   },
   icon: {
     width: "60%",

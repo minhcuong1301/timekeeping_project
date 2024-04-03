@@ -1,24 +1,28 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { actionGetUserProfileByToken } from "./src/screens/login/actions"
-import { NavigationContainer } from '@react-navigation/native';
 import { AIPT_TOKEN } from "./src/utils/constants/config"
 import * as actions from 'utils/constants/redux-actions'
 import { Provider } from "react-redux"
 import LoginScreen from "./src/screens/login"
 import HomeScreen from "./src/screens/home"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import store from "./src/app-redux/store"
 import { useDispatch } from "react-redux"
-import { Alert } from "react-native"
-
-const Stack = createNativeStackNavigator()
-
-const FirstScreen = ({ navigation }) => {
+import { ActivityIndicator, Alert } from "react-native"
+import { useSelector } from "react-redux"
+import { View, Text } from "react-native"
+import { isEmpty } from "utils/helps"
+import { NavigationContainer } from '@react-navigation/native';
+import styles from "styles"
+const Screens = () => {
   // redux
   const dispatch = useDispatch();
+  const userProfile = useSelector(state => state?.profile)
+  const [spinning, setSpinning] = useState(false)
 
-  const handleFirstNavigate = async () => {
+  const handleGetProfile = async () => {
+    setSpinning(true)
+
     try {
       const token = await AsyncStorage.getItem(AIPT_TOKEN);
 
@@ -27,41 +31,47 @@ const FirstScreen = ({ navigation }) => {
 
         if (status === 200) {
           dispatch({ type: actions.SET_PROFILE, payload: data })
-          navigation.navigate('home')
         } 
         
         else {
           Alert.alert('', data?.message)
-          navigation.navigate('home')
+          AsyncStorage.removeItem(AIPT_TOKEN)
         }
       } 
-      else {
-        navigation.navigate('login')
-      }
     } catch (error) {
       console.log(error);
     }
+
+    setSpinning(false)
   }
 
   useEffect(() => {
-    handleFirstNavigate()
+    handleGetProfile()
   }, [])
+
+
+  return (
+    spinning ?
+          (<View style={styles.loadingContainer}>
+            <ActivityIndicator animating={true} size="large" color="#0000ff" />
+          </View>):
+
+    <View style={styles.page}>
+      {!isEmpty(userProfile) ?
+          <HomeScreen/> :<LoginScreen/>
+      }
+    </View>
+      
+  )
 }
 
 const App = () => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false
-          }}
-        >
-          <Stack.Screen name="FirstScreen" component={FirstScreen} />
-          <Stack.Screen name="login" component={LoginScreen} />
-          <Stack.Screen name="home" component={HomeScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      {/* <NavigationContainer>
+
+      </NavigationContainer> */}
+      <Screens />
     </Provider>
   )
 }

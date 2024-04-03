@@ -5,7 +5,7 @@ const initState = {}
 const profile = (state = initState, action) => {
   switch (action.type) {
     case actions.SET_PROFILE:
-      return {...state, ...action.payload}
+      return action.payload
     default:
       return state
   }

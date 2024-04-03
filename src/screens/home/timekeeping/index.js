@@ -3,7 +3,7 @@ import styles from "styles"
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
-import { Button, Radio } from '@ant-design/react-native';
+import { Button, Radio } from '@rneui/themed';
 import { Camera, CameraType } from 'expo-camera'
 import * as MediaLibrary from 'expo-media-library'
 import * as FileSystem from 'expo-file-system';
@@ -157,7 +157,9 @@ const TimeKeeping = ({ navigation }) => {
                 <MaterialCommunityIcons name="send-circle" size={70} color="black" onPress={handleTimeKeep} />
               </View> :
 
-              <Button style={styles.button} onPress={takePicture}>
+              <Button  color={'#0a2946'}
+              size="lg"
+              radius={20} onPress={takePicture}>
                 <Text style={styles.buttonText} >Chấm công</Text>
               </Button>
             }

@@ -3,7 +3,7 @@ import styles from "styles"
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Button } from '@ant-design/react-native';
+import { Button } from '@rneui/themed';
 import { actionLogin } from './actions';
 import { AIPT_TOKEN } from "utils/constants/config"
 import { useDispatch } from "react-redux"
@@ -36,10 +36,9 @@ const LoginScreen = ({ navigation }) => {
       if (status === 200) {
         dispatch({type: actions.SET_PROFILE, payload: data?.profile})
         AsyncStorage.setItem(AIPT_TOKEN, data?.token);
-        navigation.navigate('home');
       }
       else {
-        Alert.alert('', data?.message)
+        Alert.alert(data?.message)
       }
     } catch (error) {
       console.log(error);
@@ -107,7 +106,10 @@ const LoginScreen = ({ navigation }) => {
                 </View>
               </View>
 
-              <Button style={styles.button} onPress={handleLogin}>
+              <Button         color={'#0a2946'}
+                size="lg"
+                radius={20}
+                onPress={handleLogin}>
                 <Text style={styles.buttonText}>Đăng nhập</Text>
               </Button>
             </View>
